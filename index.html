@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Segoe UI', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            glow: '0 0 17px rgba(56,189,248,0.14)',
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen m-0 flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 font-sans p-4">
+
+<div class="game-card w-full max-w-[420px] bg-slate-800/40 backdrop-blur-xl rounded-3xl shadow-glow border border-white/10 p-6">
+
+  <h1 class="text-slate-300 text-sm font-bold tracking-wide uppercase text-center mb-5">Tic Tac Toe</h1>
+
+  <!-- Game mode selector -->
+  <div class="relative grid grid-cols-2 bg-slate-950/50 backdrop-blur border border-white/10 rounded-full p-1 mb-3" role="tablist" aria-label="Game mode">
+    <div id="modeThumbGame" class="absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-gradient-to-r from-sky-400 to-cyan-400 shadow-[0_0_16px_rgba(56,189,248,0.55)] transition-transform duration-300 ease-out"></div>
+    <button id="modePvpBtn" onclick="setGameMode('pvp')" role="tab" aria-selected="true" class="relative z-10 py-1.5 text-[11px] font-semibold uppercase tracking-wide transition-colors duration-300 text-slate-950">Player vs Player</button>
+    <button id="modePvaiBtn" onclick="setGameMode('pvai')" role="tab" aria-selected="false" class="relative z-10 py-1.5 text-[11px] font-semibold uppercase tracking-wide transition-colors duration-300 text-slate-400 hover:text-slate-200">Player vs AI</button>
+  </div>
+
+  <!-- Difficulty selector (revealed only in Player vs AI mode) -->
+  <div id="difficultyDrawer" class="grid grid-rows-[0fr] opacity-0 transition-[grid-template-rows,opacity] duration-300 ease-in-out">
+    <div class="overflow-hidden">
+      <div class="relative grid grid-cols-3 bg-slate-950/50 border border-white/10 rounded-full p-1 mb-3" role="tablist" aria-label="AI difficulty">
+        <div id="difficultyThumb" class="absolute inset-y-1 left-1 w-[calc(33.333%-5px)] rounded-full bg-sky-400 transition-transform duration-300 ease-out" style="transform: translateX(100%);"></div>
+        <button id="easyBtn" onclick="setDifficulty('easy')" role="tab" aria-selected="false" class="difficulty-btn relative z-10 py-1 text-[10px] font-semibold uppercase transition-colors duration-300 text-slate-400">Easy</button>
+        <button id="mediumBtn" onclick="setDifficulty('medium')" role="tab" aria-selected="true" class="difficulty-btn relative z-10 py-1 text-[10px] font-semibold uppercase transition-colors duration-300 text-slate-950">Medium</button>
+        <button id="hardBtn" onclick="setDifficulty('hard')" role="tab" aria-selected="false" class="difficulty-btn relative z-10 py-1 text-[10px] font-semibold uppercase transition-colors duration-300 text-slate-400">Hard</button>
+      </div>
+      <div id="hardBadge" class="hard-badge">✓ Perfect AI — unbeatable</div>
+    </div>
+  </div>
+
+  <!-- Scoreboard -->
+  <div class="grid grid-cols-3 gap-3 mb-5">
+    <div id="scoreXCard" class="score-card score-x">
+      <span id="scoreXLabel" class="score-label">Player X</span>
+      <span id="scoreX" class="score-value">0</span>
+    </div>
+    <div class="score-card score-draw">
+      <span class="score-label">Draws</span>
+      <span id="scoreDraws" class="score-value">0</span>
+    </div>
+    <div id="scoreOCard" class="score-card score-o">
+      <span id="scoreOLabel" class="score-label">Player O</span>
+      <span id="scoreO" class="score-value">0</span>
+    </div>
+  </div>
+
+  <!-- Status banner -->
+  <div id="status" class="status-banner status-x">Player X's turn</div>
+
+  <!-- Board -->
+  <div class="board-wrap my-5">
+    <div id="board" class="board grid grid-cols-3 gap-2.5"></div>
+    <div id="winLine" class="win-line"></div>
+  </div>
+
+  <!-- Controls -->
+  <div class="flex gap-3 mt-1">
+    <button onclick="newRound()" class="control-btn primary-btn">New Round</button>
+    <button onclick="resetAll()" class="control-btn ghost-btn">Reset Score</button>
+  </div>
+
+  <p class="text-center text-slate-500/70 text-[11px] tracking-wide mt-5">Built by AS</p>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
